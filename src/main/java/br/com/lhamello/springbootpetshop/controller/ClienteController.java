@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.service.ClienteService;
@@ -34,5 +36,11 @@ public class ClienteController {
 	public String adicionarCliente(@ModelAttribute Cliente cliente) {
 		service.incluir(cliente);
 		return "cliente-adicionar";
+	}
+	
+	@GetMapping("/cliente-excluir")
+	public RedirectView removerCliente(@RequestParam final Long id) {
+		service.remover(id);
+		return new RedirectView("/");
 	}
 }

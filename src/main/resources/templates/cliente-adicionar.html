@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Adicionar Cliente</title>
 </head>
 <body>
-	<form action="#" th:action="@{/cliente-form}"  method="post">
+	<form th:action="@{/cliente-form}"  method="post">
 		<p>Nome: <input type="text" name = "nome" /></p>
 		<p>CPF: <input type="text" name="cpf" /></p>
 		<p><input type="submit" value="Adicionar" /> <input type="reset" value="Reset" /></p>

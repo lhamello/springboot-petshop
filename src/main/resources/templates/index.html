@@ -7,8 +7,10 @@
 	<ul th:each="cli : ${clientes}">
 		<li>
 			<span th:text="*{cli.nome}"></span>
-			- redds -
+			-
 			<span th:text="*{cli.cpf}"></span>
+			
+			<a th:href="@{/cliente-excluir(id=${cli.id})}">X</a>
 		</li>
 	</ul>
 	

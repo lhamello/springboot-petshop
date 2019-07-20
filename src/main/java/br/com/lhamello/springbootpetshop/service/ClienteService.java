@@ -23,4 +23,10 @@ public class ClienteService {
 	public List<Cliente> listar() {
 		return repository.findAll();
 	}
+	
+	public void remover(final Long id) {
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		repository.delete(cliente);
+	}
 }
