@@ -1,9 +1,12 @@
 package br.com.lhamello.springbootpetshop.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.lhamello.springbootpetshop.core.exception.CpfInvalidoException;
+import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.repository.ClienteRepository;
 
@@ -17,6 +20,25 @@ public class ClienteService {
 	}
 	
 	public void incluir(final Cliente cliente) {
+		final String nome = cliente.getNome();
+		final String cpf = cliente.getCpf();
+		
+		if (nome == null || nome.split(" ").length < 2) {
+			throw new NomeInvalidoException("O nome do cliente deve conter duas partes.");
+		}
+		
+		final String[] partesNome = nome.split(" ");
+		
+		Arrays.asList(partesNome).forEach(p -> {
+			if (p.length() < 2) {
+				throw new NomeInvalidoException("Cada parte do nome deve conter pelo menos 2 letras.");
+			}
+		}); 
+		
+		if (cpf == null || cpf.replaceAll("[^\\d]", "" ).length() != 11) {
+			throw new CpfInvalidoException("CPF deve conter 11 dígitos.");
+		}
+		
 		repository.save(cliente);
 	}
 	
