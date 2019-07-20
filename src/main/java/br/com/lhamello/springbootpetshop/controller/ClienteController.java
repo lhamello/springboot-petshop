@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.service.ClienteService;
 
@@ -33,8 +34,13 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/cliente-form")
-	public String adicionarCliente(@ModelAttribute Cliente cliente) {
-		service.incluir(cliente);
+	public String adicionarCliente(@ModelAttribute Cliente cliente, final Model model) {
+		try {
+			service.incluir(cliente);
+		} catch (ServiceException excecao) {
+			model.addAttribute("erro", "ERRO = " + excecao.getMessage());
+		}
+		
 		return "cliente-adicionar";
 	}
 	
