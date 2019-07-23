@@ -39,14 +39,14 @@ public class ClienteService {
 		final String nome = cliente.getNome();
 		
 		if (nome == null || nome.split(" ").length < 2) {
-			throw new NomeInvalidoException("O nome do cliente deve conter duas partes.");
+			throw new NomeInvalidoException("Informe seu nome completo.");
 		}
 		
 		final String[] partesNome = nome.split(" ");
 		
 		Arrays.asList(partesNome).forEach(p -> {
 			if (p.length() < 2) {
-				throw new NomeInvalidoException("Cada parte do nome deve conter pelo menos 2 letras.");
+				throw new NomeInvalidoException("Informe seu nome sem abreviações.");
 			}
 		}); 
 	}

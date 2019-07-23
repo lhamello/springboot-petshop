@@ -34,7 +34,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/cliente-form")
-	public String adicionarCliente(@ModelAttribute Cliente cliente, final Model model) {
+	public String adicionarCliente(Cliente cliente, final Model model) {
 		try {
 			service.incluir(cliente);
 		} catch (ServiceException excecao) {
