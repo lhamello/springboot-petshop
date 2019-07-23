@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Adicionar Animal</title>
+</head>
+<body>
+	<form th:action="@{/animal-form}" method="post">
+		<p>Nome: <input type="text" name = "nome" /></p>
+		<p>Data Nascimento: <input type="date" name="dataNascimento" /></p>
+		Espécie:
+		<select name="especie">
+			<option th:each="especie : ${especies}" th:value="${especie}" th:text="${especie}" />
+		</select>
+		<p><input type="hidden" name="clienteId" th:value="${param.clienteId}" /></p>
+		<p><input type="submit" value="Adicionar Animal" /> <input type="reset" value="Reset" /></p>
+	</form>
+</body>
+<p><output th:text="${erro}" style="color:red" />
+</html>

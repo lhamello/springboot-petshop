@@ -3,6 +3,7 @@ package br.com.lhamello.springbootpetshop.repository;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -28,5 +29,10 @@ public class AnimalRepository {
 		return animais.stream()
 			.filter(a -> a.getIdCliente().equals(clienteId))
 			.collect(Collectors.toList());
+	}
+
+	public void save(final Animal animal) {
+		animal.setId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+		animais.add(animal);
 	}
 }

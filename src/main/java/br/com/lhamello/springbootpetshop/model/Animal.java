@@ -2,6 +2,8 @@ package br.com.lhamello.springbootpetshop.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 
 /**
@@ -12,6 +14,7 @@ public class Animal {
 
 	private Long id;
 	private String nome;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate dataNascimento;
 	private Especie especie;
 	private Long clienteId;

@@ -19,4 +19,8 @@ public class AnimalService {
 	public List<Animal> listar(final Long idCliente) {
 		return repository.listar(idCliente);
 	}
+
+	public void adicionar(final Animal animal) {
+		repository.save(animal);
+	}
 }
