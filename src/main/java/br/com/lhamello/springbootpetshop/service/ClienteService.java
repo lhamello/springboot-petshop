@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.lhamello.springbootpetshop.core.exception.CpfInvalidoException;
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
+import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.repository.ClienteRepository;
 
@@ -17,6 +18,10 @@ public class ClienteService {
 	
 	public ClienteService(final ClienteRepository repository) {
 		this.repository = repository;
+	}
+	
+	public Cliente consultar(final Long id) {
+		return repository.find(id);
 	}
 	
 	public void incluir(final Cliente cliente) {
@@ -56,6 +61,14 @@ public class ClienteService {
 		
 		if (cpf == null || cpf.replaceAll("[^\\d]", "" ).length() != 11) {
 			throw new CpfInvalidoException("CPF deve conter 11 dígitos.");
+		}
+	}
+	
+	public void validarClienteAdimplente(final Long clienteId) {
+		final Cliente cliente = repository.find(clienteId);
+		
+		if (cliente == null || cliente.getInadimplente() == null || Boolean.TRUE.equals(cliente.getInadimplente())) {
+			throw new ServiceException("Não pode ser adicionado animal para um cliente inadimplente"); 
 		}
 	}
 }

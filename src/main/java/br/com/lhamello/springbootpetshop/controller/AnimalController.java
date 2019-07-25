@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 import br.com.lhamello.springbootpetshop.model.Animal;
 import br.com.lhamello.springbootpetshop.service.AnimalService;
@@ -40,8 +42,12 @@ public class AnimalController {
 	}
 
 	@PostMapping("/animal-form")
-	public String salvar(final Model model, final Animal animal) {
-		service.adicionar(animal);
-		return "/animal-adicionar";
+	public String salvar(final Animal animal, final RedirectAttributes atts) {
+		try {
+			service.adicionar(animal);
+		} catch (ServiceException excecao) {
+			atts.addFlashAttribute("erro", "ERRO = " + excecao.getMessage());
+		}
+		return "redirect:/animal-adicionar";
 	}
 }

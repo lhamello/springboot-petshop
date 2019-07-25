@@ -22,7 +22,7 @@ public class ClienteRepository {
 		clientes.add(new Cliente(3L, "Ciclano", "000.000.000-03"));
 		clientes.add(new Cliente(4L, "Fulano da Silva", "000.000.000-04"));
 	}
-	
+
 	public List<Cliente> findAll() {
 		return clientes;
 	}
@@ -34,5 +34,13 @@ public class ClienteRepository {
 
 	public void delete(final Cliente cliente) {
 		clientes.remove(cliente);
+	}
+
+	public Cliente find(final Long id) {
+		return clientes
+				.stream()
+				.filter(c -> c.getId().equals(id))
+				.findFirst()
+				.orElse(null);
 	}
 }

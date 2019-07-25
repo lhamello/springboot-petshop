@@ -5,6 +5,7 @@ public class Cliente {
 	private Long id;
 	private String nome;
 	private String cpf;
+	private Boolean inadimplente;
 
 	public Cliente() {
 		super();
@@ -15,6 +16,7 @@ public class Cliente {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
+		this.inadimplente = false;
 	}
 
 	public Long getId() {
@@ -39,6 +41,14 @@ public class Cliente {
 
 	public void setCpf(final String cpf) {
 		this.cpf = cpf;
+	}
+	
+	public Boolean getInadimplente() {
+		return inadimplente;
+	}
+
+	public void setInadimplente(Boolean inadimplente) {
+		this.inadimplente = inadimplente;
 	}
 
 	@Override
