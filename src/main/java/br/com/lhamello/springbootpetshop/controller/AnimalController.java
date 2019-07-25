@@ -47,7 +47,9 @@ public class AnimalController {
 			service.adicionar(animal);
 		} catch (ServiceException excecao) {
 			atts.addFlashAttribute("erro", "ERRO = " + excecao.getMessage());
+			return String.format("redirect:/animal-adicionar?clienteId=%s", animal.getClienteId());
 		}
+		
 		return "redirect:/animal-adicionar";
 	}
 }

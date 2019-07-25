@@ -9,6 +9,7 @@ public class Cliente {
 
 	public Cliente() {
 		super();
+		this.inadimplente = false;
 	}
 
 	public Cliente(final Long id, final String nome, final String cpf) {
