@@ -2,6 +2,7 @@ package br.com.lhamello.springbootpetshop.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,8 @@ public class ClienteService {
 	}
 	
 	private void validarNome(final Cliente cliente) {
+		Objects.requireNonNull(cliente, "Cliente não pode ser nulo");
+		
 		final String nome = cliente.getNome();
 		
 		if (nome == null || nome.split(" ").length < 2) {
