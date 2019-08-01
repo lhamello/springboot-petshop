@@ -2,28 +2,43 @@ package br.com.lhamello.springbootpetshop.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 
-/**
- * @author aluno02sala04
- *
- */
+@Entity
+@Table(name = "tb_animal")
 public class Animal {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo")
 	private Long id;
+	@Column(name = "nome")
 	private String nome;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
+	@Enumerated(EnumType.STRING)
 	private Especie especie;
+	@Column(name = "client_id")
 	private Long clienteId;
-	
+
 	public Animal() {
 		super();
 	}
-	
-	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie, final Long clienteId) {
+
+	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie,
+			final Long clienteId) {
 		this();
 		this.id = id;
 		this.nome = nome;
@@ -31,7 +46,7 @@ public class Animal {
 		this.especie = especie;
 		this.clienteId = clienteId;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -71,7 +86,7 @@ public class Animal {
 	public void setIdCliente(final Long idCliente) {
 		this.clienteId = idCliente;
 	}
-	
+
 	public Long getClienteId() {
 		return clienteId;
 	}

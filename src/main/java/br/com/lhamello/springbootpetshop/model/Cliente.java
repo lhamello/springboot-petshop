@@ -1,10 +1,25 @@
 package br.com.lhamello.springbootpetshop.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "TB_CLIENTE")
 public class Cliente {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long id;
+	@Column(name = "NOME_CLIENTE")
 	private String nome;
+	@Column(name = "CPF_CLIENTE")
 	private String cpf;
+	@Column(name = "INADIMPLENTE")
 	private Boolean inadimplente;
 
 	public Cliente() {
@@ -43,7 +58,7 @@ public class Cliente {
 	public void setCpf(final String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public Boolean getInadimplente() {
 		return inadimplente;
 	}

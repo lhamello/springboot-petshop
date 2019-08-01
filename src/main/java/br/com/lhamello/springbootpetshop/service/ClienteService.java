@@ -22,10 +22,11 @@ public class ClienteService {
 	}
 	
 	public Cliente consultar(final Long id) {
-		return repository.find(id);
+		return repository.getOne(id);
 	}
 	
 	public void incluir(final Cliente cliente) {
+		Objects.requireNonNull(cliente, "Cliente não pode ser nulo.");
 		this.validarNome(cliente);
 		this.validarCPF(cliente);
 		repository.save(cliente);
@@ -42,8 +43,6 @@ public class ClienteService {
 	}
 	
 	private void validarNome(final Cliente cliente) {
-		Objects.requireNonNull(cliente, "Cliente não pode ser nulo");
-		
 		final String nome = cliente.getNome();
 		
 		if (nome == null || nome.split(" ").length < 2) {
@@ -68,7 +67,7 @@ public class ClienteService {
 	}
 	
 	public void validarClienteAdimplente(final Long clienteId) {
-		final Cliente cliente = repository.find(clienteId);
+		final Cliente cliente = repository.getOne(clienteId);
 		
 		if (cliente == null || cliente.getInadimplente() == null || Boolean.TRUE.equals(cliente.getInadimplente())) {
 			throw new ServiceException("Não pode ser adicionado animal para um cliente inadimplente"); 
