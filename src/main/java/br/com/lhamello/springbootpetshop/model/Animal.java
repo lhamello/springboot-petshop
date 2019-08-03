@@ -3,6 +3,7 @@ package br.com.lhamello.springbootpetshop.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,9 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
+import br.com.lhamello.springbootpetshop.model.vo.Data;
 
 @Entity
 @Table(name = "tb_animal")
@@ -25,9 +25,8 @@ public class Animal {
 	private Long id;
 	@Column(name = "nome")
 	private String nome;
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Column(name = "data_nascimento")
-	private LocalDate dataNascimento;
+	@Embedded
+	private Data dataNascimento;
 	@Enumerated(EnumType.STRING)
 	private Especie especie;
 	@Column(name = "client_id")
@@ -35,14 +34,14 @@ public class Animal {
 
 	public Animal() {
 		super();
+		this.dataNascimento = new Data();
 	}
 
-	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie,
-			final Long clienteId) {
+	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie, final Long clienteId) {
 		this();
 		this.id = id;
 		this.nome = nome;
-		this.dataNascimento = dataNascimento;
+		this.dataNascimento = new Data(dataNascimento);
 		this.especie = especie;
 		this.clienteId = clienteId;
 	}
@@ -63,11 +62,11 @@ public class Animal {
 		this.nome = nome;
 	}
 
-	public LocalDate getDataNascimento() {
+	public Data getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(final LocalDate dataNascimento) {
+	public void setDataNascimento(final Data dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 

@@ -1,11 +1,14 @@
 package br.com.lhamello.springbootpetshop.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 
 @Entity
 @Table(name = "TB_CLIENTE")
@@ -17,21 +20,22 @@ public class Cliente {
 	private Long id;
 	@Column(name = "NOME_CLIENTE")
 	private String nome;
-	@Column(name = "CPF_CLIENTE")
-	private String cpf;
+	@Embedded
+	private Cpf cpf;
 	@Column(name = "INADIMPLENTE")
 	private Boolean inadimplente;
 
 	public Cliente() {
 		super();
 		this.inadimplente = false;
+		this.cpf = new Cpf(null);
 	}
 
-	public Cliente(final Long id, final String nome, final String cpf) {
+	public Cliente(final Long id, final String nome, final String numeroCpf) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.cpf = cpf;
+		this.cpf = new Cpf(numeroCpf);
 		this.inadimplente = false;
 	}
 
@@ -51,11 +55,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getCpf() {
+	public Cpf getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(final String cpf) {
+	public void setCpf(Cpf cpf) {
 		this.cpf = cpf;
 	}
 

@@ -1,6 +1,5 @@
 package br.com.lhamello.springbootpetshop.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.lhamello.springbootpetshop.core.exception.DataNascimentoException;
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.model.Animal;
+import br.com.lhamello.springbootpetshop.model.vo.Data;
 import br.com.lhamello.springbootpetshop.repository.AnimalRepository;
 
 @Service
@@ -33,9 +33,9 @@ public class AnimalService {
 	}
 
 	private void validarDataNascimento(final Animal animal) {
-		final LocalDate dataNascimento = animal.getDataNascimento();
+		final Data dataNascimento = animal.getDataNascimento();
 
-		if (dataNascimento == null || dataNascimento.isAfter(LocalDate.now())) {
+		if (!dataNascimento.isValida()) {
 			throw new DataNascimentoException("A data de nascimento deve ser menor ou igual a data de hoje.");
 		}
 	}

@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.model.Cliente;
+import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 import br.com.lhamello.springbootpetshop.repository.ClienteRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +50,7 @@ public class ClienteServiceTest {
 	public void deveIncluirClienteComSucesso() {
 		Cliente cliente = new Cliente();
 		cliente.setNome("Luiz Henrique");
-		cliente.setCpf("12345678901");
+		cliente.setCpf(new Cpf("12345678901"));
 		clienteService.incluir(cliente);
 		verify(clienteRepository).save(cliente);
 	}

@@ -7,7 +7,7 @@
 <body>
 	<form th:action="@{/animal-form}" method="post" >
 		<p>Nome: <input type="text" name = "nome" /></p>
-		<p>Data Nascimento: <input type="date" name="dataNascimento" /></p>
+		<p>Data Nascimento: <input type="date" name="dataNascimento.valor" /></p>
 		Espécie:
 		<select name="especie">
 			<option th:each="especie : ${especies}" th:value="${especie}" th:text="${especie}" />

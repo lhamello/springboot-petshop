@@ -10,6 +10,7 @@ import br.com.lhamello.springbootpetshop.core.exception.CpfInvalidoException;
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 import br.com.lhamello.springbootpetshop.model.Cliente;
+import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 import br.com.lhamello.springbootpetshop.repository.ClienteRepository;
 
 @Service
@@ -59,9 +60,9 @@ public class ClienteService {
 	}
 	
 	private void validarCPF(final Cliente cliente) {
-		final String cpf = cliente.getCpf();
+		final Cpf cpf = cliente.getCpf();
 		
-		if (cpf == null || cpf.replaceAll("[^\\d]", "" ).length() != 11) {
+		if (cpf == null || !cpf.isValido()) {
 			throw new CpfInvalidoException("CPF deve conter 11 dígitos.");
 		}
 	}
