@@ -28,7 +28,7 @@ public class AnimalService {
 	public void adicionar(final Animal animal) {
 		this.validarDataNascimento(animal);
 		this.validarNome(animal);
-		clienteService.validarClienteAdimplente(animal.getClienteId());
+		clienteService.validarClienteAdimplente(animal.getCliente().getId());
 		repository.save(animal);
 	}
 

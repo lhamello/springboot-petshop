@@ -1,23 +1,23 @@
 package br.com.lhamello.springbootpetshop.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 import br.com.lhamello.springbootpetshop.model.Animal;
 import br.com.lhamello.springbootpetshop.repository.AnimalRepository;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AnimalServiceTest {
 
 	@Mock
@@ -37,7 +37,7 @@ public class AnimalServiceTest {
 		final int valorEsperado = 0;
 		final String mensagem = "Deve retornar uma lista vazia.";
 
-		assertEquals(valorEsperado, valorAtual, mensagem);
+		assertEquals(mensagem, valorEsperado, valorAtual);
 	}
 	
 	public void deveRetornarListaComAnimais() {

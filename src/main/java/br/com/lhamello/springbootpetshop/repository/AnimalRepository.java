@@ -12,6 +12,8 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
 	List<Animal> findByClienteId(Long idCliente);
 
+	List<Animal> findByNome(String string);
+
 //	private List<Animal> animais = new LinkedList<>();
 //
 //	@PostConstruct

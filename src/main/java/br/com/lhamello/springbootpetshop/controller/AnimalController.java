@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 import br.com.lhamello.springbootpetshop.model.Animal;
+import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.service.AnimalService;
 
 @Controller
@@ -42,12 +43,13 @@ public class AnimalController {
 	}
 
 	@PostMapping("/animal-form")
-	public String salvar(final Animal animal, final RedirectAttributes atts) {
+	public String salvar(final Animal animal, @RequestParam Long clienteId, final RedirectAttributes atts) {
 		try {
+			animal.setCliente(new Cliente(clienteId));
 			service.adicionar(animal);
 		} catch (ServiceException excecao) {
 			atts.addFlashAttribute("erro", "ERRO = " + excecao.getMessage());
-			return String.format("redirect:/animal-adicionar?clienteId=%s", animal.getClienteId());
+			return String.format("redirect:/animal-adicionar?clienteId=%s", animal.getCliente().getId());
 		}
 		
 		return "redirect:/animal-adicionar";

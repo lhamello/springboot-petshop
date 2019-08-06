@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Cpf {
 
-	@Column(name = "CPF_CLIENTE")
+	@Column(name = "CPF")
 	private String valor;
 
 	private Cpf() {

@@ -1,6 +1,7 @@
 package br.com.lhamello.springbootpetshop.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,47 +11,68 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.lhamello.springbootpetshop.enumeration.Especie;
 import br.com.lhamello.springbootpetshop.model.vo.Data;
 
 @Entity
-@Table(name = "tb_animal")
+@Table(name = "ANIMAL")
 public class Animal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codigo")
+	@Column(name = "ID")
 	private Long id;
-	@Column(name = "nome")
+
+	@Column(name = "NOME")
 	private String nome;
+
 	@Embedded
 	private Data dataNascimento;
+
 	@Enumerated(EnumType.STRING)
+	@Column(name = "ESPECIE")
 	private Especie especie;
-	@Column(name = "client_id")
-	private Long clienteId;
+
+	// @Column(name = "client_id")
+//	private Long clienteId;
+
+	@ManyToOne
+	@JoinColumn(name = "CLIENTE_ID")
+	private Cliente cliente;
+
+	@JoinColumn(name = "UNIDADE_ID")
+	@ManyToOne
+	private Unidade unidade;
+
+	@OneToMany(mappedBy = "animal")
+	private List<Produto> produtos;
 
 	public Animal() {
 		super();
 		this.dataNascimento = new Data();
+		this.cliente = new Cliente();
 	}
 
-	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie, final Long clienteId) {
+	public Animal(final Long id, final String nome, final LocalDate dataNascimento, final Especie especie,
+			final Long clienteId) {
 		this();
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = new Data(dataNascimento);
 		this.especie = especie;
-		this.clienteId = clienteId;
+		this.cliente = new Cliente(clienteId);
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(final Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -58,7 +80,7 @@ public class Animal {
 		return nome;
 	}
 
-	public void setNome(final String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -66,7 +88,7 @@ public class Animal {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(final Data dataNascimento) {
+	public void setDataNascimento(Data dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -74,24 +96,32 @@ public class Animal {
 		return especie;
 	}
 
-	public void setEspecie(final Especie especie) {
+	public void setEspecie(Especie especie) {
 		this.especie = especie;
 	}
 
-	public Long getIdCliente() {
-		return clienteId;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(final Long idCliente) {
-		this.clienteId = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
-	public Long getClienteId() {
-		return clienteId;
+	public Unidade getUnidade() {
+		return unidade;
 	}
 
-	public void setClienteId(final Long clienteId) {
-		this.clienteId = clienteId;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	@Override

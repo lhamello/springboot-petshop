@@ -1,34 +1,54 @@
 package br.com.lhamello.springbootpetshop.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 
 @Entity
-@Table(name = "TB_CLIENTE")
+@Table(name = "CLIENTE")
 public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
-	@Column(name = "NOME_CLIENTE")
+
+	@Column(name = "NOME")
 	private String nome;
+
 	@Embedded
 	private Cpf cpf;
+
 	@Column(name = "INADIMPLENTE")
 	private Boolean inadimplente;
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Animal> animais;
+
+	@JoinColumn(name = "UNIDADE_ID")
+	@ManyToOne
+	private Unidade unidade;
 
 	public Cliente() {
 		super();
 		this.inadimplente = false;
 		this.cpf = new Cpf(null);
+	}
+
+	public Cliente(final Long id) {
+		super();
+		this.id = id;
 	}
 
 	public Cliente(final Long id, final String nome, final String numeroCpf) {
@@ -51,7 +71,7 @@ public class Cliente {
 		return nome;
 	}
 
-	public void setNome(final String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
@@ -69,6 +89,22 @@ public class Cliente {
 
 	public void setInadimplente(Boolean inadimplente) {
 		this.inadimplente = inadimplente;
+	}
+
+	public List<Animal> getAnimais() {
+		return animais;
+	}
+
+	public void setAnimais(List<Animal> animais) {
+		this.animais = animais;
+	}
+
+	public Unidade getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 
 	@Override

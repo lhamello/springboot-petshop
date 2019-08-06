@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Data {
 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Column(name = "data_nascimento")
+	@Column(name = "DATA_NASCIMENTO")
 	private LocalDate valor;
 
 	public Data() {
