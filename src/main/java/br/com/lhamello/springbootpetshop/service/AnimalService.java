@@ -1,12 +1,16 @@
 package br.com.lhamello.springbootpetshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.lhamello.springbootpetshop.core.exception.DataNascimentoException;
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.model.Animal;
+import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.model.vo.Data;
 import br.com.lhamello.springbootpetshop.repository.AnimalRepository;
 
@@ -47,4 +51,18 @@ public class AnimalService {
 			throw new NomeInvalidoException("Informe o nome completo.");
 		}
 	}
+
+	public List<Animal> listarByExample(Optional<Long> clienteId, Optional<String> nome) {
+        Animal animal = new Animal();
+        
+        if (clienteId.isPresent()) {
+            animal.setCliente(new Cliente(clienteId.get()));;
+        }
+        
+        if (nome.isPresent()) {
+            animal.setNome(nome.get());
+        }
+        
+        return repository.findAll(Example.of(animal), Sort.by("nome"));
+    }
 }
