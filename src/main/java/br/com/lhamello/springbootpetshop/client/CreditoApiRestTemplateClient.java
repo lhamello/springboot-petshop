@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 
 @Component
+@Qualifier("restTemplate")
 public class CreditoApiRestTemplateClient {
 
 	private final RestTemplate restTemplate;
@@ -33,6 +35,9 @@ public class CreditoApiRestTemplateClient {
 			} else {
 				throw new ServiceException("Serviço de consulta ao crédito indisponível.");
 			}
+		} catch (Exception excecao) {
+			LOGGER.info("Erro ao acessar o serviço de crédito.", excecao);
+			throw new ServiceException("Serviço de consulta ao Crédito indisponível.");
 		}
 	}
 }

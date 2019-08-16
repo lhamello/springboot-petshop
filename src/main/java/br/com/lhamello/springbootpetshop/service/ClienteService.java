@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.lhamello.springbootpetshop.client.CreditoApiClient;
+import br.com.lhamello.springbootpetshop.client.CreditoDTO;
 import br.com.lhamello.springbootpetshop.core.exception.CpfInvalidoException;
 import br.com.lhamello.springbootpetshop.core.exception.NomeInvalidoException;
 import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
@@ -18,9 +20,11 @@ import br.com.lhamello.springbootpetshop.repository.ClienteRepository;
 public class ClienteService {
 
 	private final ClienteRepository repository;
+	private final CreditoApiClient creditoApiClient;
 
-	public ClienteService(final ClienteRepository repository) {
+	public ClienteService(final ClienteRepository repository, final CreditoApiClient creditoApiClient) {
 		this.repository = repository;
+		this.creditoApiClient = creditoApiClient;
 	}
 
 	public Cliente consultar(final Long id) {
@@ -35,7 +39,16 @@ public class ClienteService {
 		Objects.requireNonNull(cliente, "Cliente não pode ser nulo.");
 		this.validarNome(cliente);
 		this.validarCPF(cliente);
+		this.validarSituacaoCredito(cliente);
 		return repository.save(cliente);
+	}
+
+	private void validarSituacaoCredito(Cliente cliente) {
+		CreditoDTO dto = creditoApiClient.verificarSituacao(cliente.getCpf().getValor());
+		
+		if ("NEGATIVADO".equals(dto.getSituacao())) {
+			throw new ServiceException("Cliente negativado! Não pode ser cadastrado!");
+		}
 	}
 
 	public List<Cliente> listar() {
