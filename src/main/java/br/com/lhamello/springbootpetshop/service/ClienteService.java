@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import br.com.lhamello.springbootpetshop.client.CreditoApiClient;
@@ -22,7 +23,7 @@ public class ClienteService {
 	private final ClienteRepository repository;
 	private final CreditoApiClient creditoApiClient;
 
-	public ClienteService(final ClienteRepository repository, final CreditoApiClient creditoApiClient) {
+	public ClienteService(final ClienteRepository repository, @Qualifier("feign") final CreditoApiClient creditoApiClient) {
 		this.repository = repository;
 		this.creditoApiClient = creditoApiClient;
 	}

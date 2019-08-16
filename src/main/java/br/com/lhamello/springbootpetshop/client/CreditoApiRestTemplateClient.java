@@ -13,7 +13,7 @@ import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 
 @Component
 @Qualifier("restTemplate")
-public class CreditoApiRestTemplateClient {
+public class CreditoApiRestTemplateClient implements CreditoApiClient {
 
 	private final RestTemplate restTemplate;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CreditoApiRestTemplateClient.class);

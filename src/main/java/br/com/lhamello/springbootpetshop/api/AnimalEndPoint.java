@@ -23,12 +23,12 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/animais")
 @Api("Animal Controller")
-public class AnimalEndpoint {
+public class AnimalEndPoint {
 
     private final AnimalService animalService;
     private final ModelMapper mapper;
 
-    public AnimalEndpoint(AnimalService animalService, ModelMapper mapper) {
+    public AnimalEndPoint(AnimalService animalService, ModelMapper mapper) {
         this.animalService = animalService;
         this.mapper = mapper;
     }
