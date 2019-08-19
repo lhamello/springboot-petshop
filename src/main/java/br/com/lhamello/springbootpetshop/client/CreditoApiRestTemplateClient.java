@@ -5,6 +5,7 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -15,15 +16,17 @@ import br.com.lhamello.springbootpetshop.core.exception.ServiceException;
 @Qualifier("restTemplate")
 public class CreditoApiRestTemplateClient implements CreditoApiClient {
 
-	private final RestTemplate restTemplate;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CreditoApiRestTemplateClient.class);
+	private final RestTemplate restTemplate;
+	private final String creditoApiUrl;
 
-	public CreditoApiRestTemplateClient(final RestTemplate restTemplate) {
+	public CreditoApiRestTemplateClient(final RestTemplate restTemplate, @Value("${api.credito-api.url}") final String creditoApiUrl) {
 		this.restTemplate = restTemplate;
+		this.creditoApiUrl = creditoApiUrl;
 	}
 
 	public CreditoDTO verificarSituacao(final String cpf) {
-		final URI url = URI.create("https://imersao-credito-api.herokuapp.com/credito/" + cpf);
+		final URI url = URI.create(String.format("%s/credito/%s", creditoApiUrl, cpf));
 
 		try {
 			return restTemplate.getForObject(url, CreditoDTO.class);

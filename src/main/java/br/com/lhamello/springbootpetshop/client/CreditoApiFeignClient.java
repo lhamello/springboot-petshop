@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
 @Qualifier("feign")
-@FeignClient(value = "credito-api",url = "https://imersao-credito-api.herokuapp.com/")
+@FeignClient(value = "credito-api", url = "${api.credito-api.url}")
 public interface CreditoApiFeignClient extends CreditoApiClient {
 
-    @Override
-    @GetMapping("/credito/{cpf}")
-    CreditoDTO verificarSituacao(@PathVariable("cpf") String cpf);
+	@Override
+	@GetMapping("/credito/{cpf}")
+	CreditoDTO verificarSituacao(@PathVariable("cpf") String cpf);
 }
