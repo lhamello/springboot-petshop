@@ -1,0 +1,12 @@
+api:
+  credito-api:
+    url: https://imersao-credito-api.herokuapp.com
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true      
+  h2:
+    console:      
+      enable: true   
