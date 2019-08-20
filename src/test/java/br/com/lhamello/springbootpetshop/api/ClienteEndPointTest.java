@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.lhamello.springbootpetshop.config.ModelMapperConfig;
 import br.com.lhamello.springbootpetshop.dto.ClienteDTO;
-import br.com.lhamello.springbootpetshop.dto.factory.ClienteDtoFactory;
+import br.com.lhamello.springbootpetshop.dto.factory.ClienteDTOFactory;
 import br.com.lhamello.springbootpetshop.model.Cliente;
 import br.com.lhamello.springbootpetshop.service.ClienteService;
 
@@ -65,7 +65,7 @@ public class ClienteEndPointTest {
 		Mockito.when(clienteService.incluir(clienteSalvar))
 		       .thenReturn(clienteSalvar);
 		
-		ClienteDTO clienteDTO = ClienteDtoFactory.from(clienteSalvar);
+		ClienteDTO clienteDTO = ClienteDTOFactory.from(clienteSalvar);
 		
 		byte[] objectToJson = new ObjectMapper().writeValueAsBytes(clienteDTO);
 		
