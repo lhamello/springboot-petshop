@@ -6,23 +6,22 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.lhamello.springbootpetshop.dto.ClienteDTO;
 import br.com.lhamello.springbootpetshop.model.Cliente;
-import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 
 @Configuration
 public class ModelMapperConfig {
 
 	@Bean
-	public ModelMapper getModelMapperBean() {
+	public ModelMapper getBean() {
 		ModelMapper modelMapper = new ModelMapper();
+
+		modelMapper.createTypeMap(Cliente.class, ClienteDTO.class)
+		           .addMapping(cliente -> cliente.getCpf().getValor(), ClienteDTO::setCpf);
 		
-		modelMapper
-			.createTypeMap(Cliente.class, ClienteDTO.class)
-			.addMapping(cliente -> cliente.getCpf().getValor(), ClienteDTO::setCpf);
-		
-		modelMapper
-			.createTypeMap(ClienteDTO.class, Cliente.class)
-			.addMapping(dto -> new Cpf(dto.getCpf()), Cliente::setCpf);
-		
-		return new ModelMapper();
+//        .addMapping(Cliente::getCpf, (clienteDto, o) -> clienteDto.setCpf(((Cpf)o).getValor()));
+
+		modelMapper.createTypeMap(ClienteDTO.class, Cliente.class)
+		           .addMapping(ClienteDTO::getCpf, (cliente, o) -> cliente.getCpf().setValor((String) o));
+
+		return modelMapper;
 	}
 }

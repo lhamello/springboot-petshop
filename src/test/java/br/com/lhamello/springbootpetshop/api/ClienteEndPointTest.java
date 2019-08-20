@@ -3,9 +3,13 @@ package br.com.lhamello.springbootpetshop.api;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Optional;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,6 +30,7 @@ import br.com.lhamello.springbootpetshop.config.ModelMapperConfig;
 import br.com.lhamello.springbootpetshop.dto.ClienteDTO;
 import br.com.lhamello.springbootpetshop.dto.factory.ClienteDTOFactory;
 import br.com.lhamello.springbootpetshop.model.Cliente;
+import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 import br.com.lhamello.springbootpetshop.service.ClienteService;
 
 @RunWith(SpringRunner.class)
@@ -60,7 +65,7 @@ public class ClienteEndPointTest {
 	
 	@Test
 	public void deveCriarClienteComSucesso() throws Exception {
-		Cliente clienteSalvar = new Cliente(56L, "Fulano Silva da Silva", "999-888-777-66");
+		Cliente clienteSalvar = new Cliente(56L, "Fulano Silva da Silva", "999.888.777-66");
 		
 		Mockito.when(clienteService.incluir(clienteSalvar))
 		       .thenReturn(clienteSalvar);
@@ -75,5 +80,19 @@ public class ClienteEndPointTest {
 			   .andExpect(MockMvcResultMatchers.status().isCreated())
 			   .andExpect(header().string("Location", "/clientes/56"))
 			   .andExpect(content().string(""));
+	}
+	
+	@Test
+	public void deveRetornarFulanoComSucesso() throws Exception {
+		Cliente cliente = new Cliente(55L, "Fulano Santos", "555.444.888-87");
+		Mockito.when(clienteService.findById(55L)).thenReturn(Optional.of(cliente));
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/clientes/55"))
+			   .andExpect(status().isOk())
+			   .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+			   .andExpect(jsonPath("$.id").value(CoreMatchers.equalTo(55)))
+			   .andExpect(jsonPath("$.nome").value(CoreMatchers.equalTo("Fulano Santos")))
+			   .andExpect(jsonPath("$.cpf").value(CoreMatchers.equalTo("555.444.888-87")))
+			   .andDo(MockMvcResultHandlers.print());
 	}
 }
