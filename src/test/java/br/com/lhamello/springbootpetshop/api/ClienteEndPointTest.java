@@ -47,7 +47,7 @@ public class ClienteEndPointTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/clientes"))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.header().string("Content-Type", "applicaton/json;charset=UTF-8"))
-			.andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(equalTo(77)))
+			.andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(equalTo(77)))
 			.andDo(MockMvcResultHandlers.print());
 	}
 }
