@@ -30,7 +30,6 @@ import br.com.lhamello.springbootpetshop.config.ModelMapperConfig;
 import br.com.lhamello.springbootpetshop.dto.ClienteDTO;
 import br.com.lhamello.springbootpetshop.dto.factory.ClienteDTOFactory;
 import br.com.lhamello.springbootpetshop.model.Cliente;
-import br.com.lhamello.springbootpetshop.model.vo.Cpf;
 import br.com.lhamello.springbootpetshop.service.ClienteService;
 
 @RunWith(SpringRunner.class)
