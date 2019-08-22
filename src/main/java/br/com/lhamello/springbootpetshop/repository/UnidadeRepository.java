@@ -12,6 +12,6 @@ import br.com.lhamello.springbootpetshop.model.Unidade;
 @Repository
 public interface UnidadeRepository extends JpaRepository<Unidade, Long> {
 
-	@Query("select distinct a.unidade from Animal a Where a = :nome")
+	@Query("select distinct a.unidade from Animal a where a.nome = :nome")
 	List<Unidade> findByAnimaisNome(@Param("nome") String nome);
 }
