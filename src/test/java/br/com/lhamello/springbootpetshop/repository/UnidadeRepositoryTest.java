@@ -36,15 +36,20 @@ public class UnidadeRepositoryTest {
 		assertEquals("Centro", unidade2.getNome());
 		assertEquals("Rua Alberto Bins", unidade2.getEndereco());
 	}
-	
+
 	@Test
-	public void deveConsultarAnimaisPeloNomeRex() {
+	public void findByAnimaisNomeRex() {
 		List<Unidade> unidades = unidadeRepository.findByAnimaisNome("Rex");
 		assertEquals(1, unidades.size());
+		
+		Unidade unidade = unidades.get(0);
+		assertEquals("Centro", unidade.getNome());
+		assertEquals("Rua Alberto Bins", unidade.getEndereco());
+	}
 
-		Unidade unidade1 = unidades.get(0);
-		assertEquals(Long.valueOf(2), unidade1.getId());
-		assertEquals("Centro", unidade1.getNome());
-		assertEquals("Rua Alberto Bins", unidade1.getEndereco());
+	@Test
+	public void findByAnimaisNomeSemResultados() {
+		List<Unidade> unidades = unidadeRepository.findByAnimaisNome("Totó");
+		assertEquals(0, unidades.size());
 	}
 }
